@@ -16,31 +16,31 @@ Vue.component('contract-form', {
     props: ['contracts', 'contractAttr'],
     data: function() {
         return {
-            text: '',
+            university: '',
             id: ''
         }
     },
     watch: {
         contractAttr: function(newVal, oldVal) {
-            this.text = newVal.text;
+            this.university = newVal.university;
             this.id = newVal.id;
         }
     },
     template:
         '<div>' +
-        '<input type="text" placeholder="Write something" v-model="text" />' +
+        '<input type="text" placeholder="Write something" v-model="university" />' +
         '<input type="button" value="Save" @click="save" />' +
         '</div>',
     methods: {
         save: function() {
-            var contract = { text: this.text };
+            var contract = { university: this.university };
 
             if (this.id) {
                 contractApi.update({id: this.id}, contract).then(result =>
                     result.json().then(data => {
                         var index = getIndex(this.contracts, data.id);
                         this.contracts.splice(index, 1, data);
-                        this.text = ''
+                        this.university = ''
                         this.id = ''
                     })
                 )
@@ -48,7 +48,7 @@ Vue.component('contract-form', {
                 contractApi.save({}, contract).then(result =>
                     result.json().then(data => {
                         this.contracts.push(data);
-                        this.text = ''
+                        this.university = ''
                     })
                 )
             }
@@ -59,7 +59,7 @@ Vue.component('contract-form', {
 Vue.component('contract-row', {
     props: ['contract', 'editMethod', 'contracts'],
     template: '<div>' +
-        '<i>({{ contract.id }})</i> {{ contract.text }}' +
+        '<i>({{ contract.id }})</i> {{ contract.university }}' +
         '<span style="position: absolute; right: 0">' +
         '<input type="button" value="Edit" @click="edit" />' +
         '<input type="button" value="X" @click="del" />' +
