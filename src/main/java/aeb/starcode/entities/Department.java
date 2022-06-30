@@ -1,4 +1,4 @@
-package aeb.starcode.Entities;
+package aeb.starcode.entities;
 
 import lombok.*;
 
